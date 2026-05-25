@@ -1,0 +1,727 @@
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  Github,
+  ExternalLink,
+  Mail,
+  Code2,
+  GitBranch,
+  Menu,
+  X,
+  Linkedin,
+  ArrowUp,
+  Globe,
+} from "lucide-react";
+import { useState, useEffect } from "react";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { projects as projectsData } from "@/data/projects";
+import About from "./About";
+
+/**
+ * Design: Cyberpunk Minimalism
+ * - Pure black background with neon green (#00FF41) accents
+ * - Monospace typography (JetBrains Mono for headings, Fira Code for body)
+ * - Asymmetric layouts with diagonal dividers
+ * - Terminal-inspired aesthetic with minimal noise
+ * - Scroll-triggered animations with Intersection Observer
+ */
+
+export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const activeSection = useActiveSection();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setMobileMenuOpen(false);
+    }
+  };
+
+  const navLinks = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "projects", label: "Projects" },
+    { id: "skills", label: "Skills" },
+    { id: "contact", label: "Contact" },
+  ];
+
+  const projects = projectsData;
+
+  const skills = {
+    backend: [
+      "Node.js",
+      "TypeScript",
+      "Express",
+      "Prisma",
+      "PostgreSQL",
+      "Redis",
+    ],
+    frontend: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Zustand",
+      "React Query",
+      "Zod",
+    ],
+    ai: ["Gemini API", "Tavily Search API"],
+    deployment: ["Render", "Vercel"],
+    other: ["next-intl (i18n)", "shadcn/ui"],
+  };
+
+  const socialLinks = [
+    { icon: Github, url: "https://github.com/Roiwhiz", label: "GitHub" },
+    {
+      icon: Linkedin,
+      url: "https://www.linkedin.com/in/toheeb-salaudeen-83b2382a6/",
+      label: "LinkedIn",
+    },
+    { icon: Mail, url: "mailto:hello@example.com", label: "Email" },
+  ];
+
+  // Scroll reveal refs
+  const projectsRef = useScrollReveal();
+  const skillsRef = useScrollReveal();
+  const contactRef = useScrollReveal();
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <button
+            onClick={() => scrollToSection("home")}
+            className="text-xl font-bold neon-glow animate-glowPulse hover:opacity-80 transition-opacity"
+          >
+            ST
+          </button>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex gap-6 text-sm">
+            {navLinks.map(link => (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className={`transition-all duration-200 ease-out relative group ${
+                  activeSection === link.id
+                    ? "text-accent"
+                    : "hover:text-accent"
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute bottom-0 left-0 h-0.5 bg-accent transition-all duration-300 ${
+                    activeSection === link.id
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden text-accent hover:text-accent/80 transition-colors"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Sidebar */}
+        {mobileMenuOpen && (
+          <>
+            {/* Overlay - Full screen backdrop */}
+            <div
+              className="fixed inset-0 bg-black/60 z-30 md:hidden backdrop-blur-sm animate-fadeInUp"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{ animationDuration: "200ms" }}
+            />
+
+            {/* Sidebar Drawer */}
+            <div className="fixed left-0 top-0 h-screen w-64 bg-card border-r border-border z-40 md:hidden flex flex-col animate-slideInLeft shadow-2xl shadow-black/50">
+              {/* Sidebar Header with Close Button */}
+              <div className="sticky top-0 flex items-center justify-between p-4 border-b border-border bg-card/95 backdrop-blur-sm">
+                <h3 className="text-lg font-bold text-accent">Navigation</h3>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-muted-foreground hover:text-accent transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Scrollable Navigation Content */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                {navLinks.map(link => (
+                  <button
+                    key={link.id}
+                    onClick={() => scrollToSection(link.id)}
+                    className={`block w-full text-left py-3 px-4 rounded-sm transition-all duration-200 ease-out ${
+                      activeSection === link.id
+                        ? "bg-accent/10 text-accent"
+                        : "text-muted-foreground hover:text-accent hover:bg-accent/5"
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Sticky Footer */}
+              <div className="sticky bottom-0 border-t border-border bg-card/95 backdrop-blur-sm p-4">
+                <p className="text-xs text-muted-foreground mb-4 text-center">
+                  Connect
+                </p>
+                <div className="flex gap-3 justify-center">
+                  {socialLinks.map(({ icon: Icon, url, label }) => (
+                    <a
+                      key={label}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 bg-muted hover:bg-accent/20 hover:text-accent border border-border hover:border-accent rounded-sm transition-all duration-200 ease-out"
+                      aria-label={label}
+                    >
+                      <Icon size={18} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </nav>
+
+      {/* Hero Section - Redesigned */}
+      <section
+        id="home"
+        className="relative min-h-screen md:min-h-screen md:flex md:items-center md:justify-center overflow-hidden md:overflow-visible"
+      >
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage:
+              "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663607561837/MoBa6NCCrY6EDtDsBXQgye/tech-stack-bg-DmRdkwo8BaTUTKs58UDwUX.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 0.08,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background z-1" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Desktop Layout */}
+          <div className="hidden md:grid grid-cols-2 gap-12 items-center">
+            {/* Left: Name and Title */}
+            <div className="animate-fadeInUp">
+              <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+                Toheeb
+                <br />
+                <span className="neon-glow">Salaudeen</span>
+              </h1>
+
+              <p className="text-3xl md:text-4xl text-accent font-mono mb-12 font-bold">
+                Software Engineer
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                <button
+                  onClick={() => scrollToSection("projects")}
+                  className="px-8 py-3 bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/50 font-semibold transition-all duration-200 ease-out rounded-sm"
+                >
+                  View My Work
+                </button>
+                <button
+                  onClick={() => {
+                    const link = document.createElement("a");
+                    link.href = "#";
+                    link.download = "Toheeb_Salaudeen_CV.pdf";
+                    link.click();
+                  }}
+                  className="px-8 py-3 border border-accent text-accent hover:bg-accent/10 hover:shadow-lg hover:shadow-accent/30 font-semibold transition-all duration-200 ease-out rounded-sm"
+                >
+                  Download CV
+                </button>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex gap-6">
+                {socialLinks.map(({ icon: Icon, url, label }) => (
+                  <a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-muted hover:bg-accent/10 hover:text-accent border border-border hover:border-accent rounded-sm transition-all duration-200 ease-out"
+                    aria-label={label}
+                  >
+                    <Icon size={20} />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: 3D Graphics */}
+            <div className="flex items-center justify-center">
+              <div className="relative w-full h-96">
+                {/* 3D-like animated background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10 rounded-lg animate-pulse" />
+
+                {/* Animated geometric shapes */}
+                <div
+                  className="absolute top-10 right-10 w-32 h-32 border-2 border-accent/30 rounded-lg animate-spin"
+                  style={{ animationDuration: "20s" }}
+                />
+                <div className="absolute bottom-20 left-10 w-24 h-24 border-2 border-accent/20 rounded-full animate-pulse" />
+                <div
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 border-2 border-accent/40 rounded-lg animate-spin"
+                  style={{
+                    animationDuration: "30s",
+                    animationDirection: "reverse",
+                  }}
+                />
+
+                {/* Center text */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <Code2 className="w-16 h-16 text-accent/60 mx-auto mb-4 animate-bounce" />
+                    <p className="text-sm text-muted-foreground font-mono">
+                      Software
+                    </p>
+                    <p className="text-sm text-muted-foreground font-mono">
+                      Engineer
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Layout - Full Viewport Height Hero */}
+          <div className="md:hidden flex flex-col items-center justify-center min-h-[100dvh] px-4 py-8">
+            {/* Animated Background Grid */}
+            <div className="absolute inset-0 opacity-5">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(0deg, transparent 24%, rgba(0, 255, 65, 0.05) 25%, rgba(0, 255, 65, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, 0.05) 75%, rgba(0, 255, 65, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 255, 65, 0.05) 25%, rgba(0, 255, 65, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, 0.05) 75%, rgba(0, 255, 65, 0.05) 76%, transparent 77%, transparent)",
+                  backgroundSize: "50px 50px",
+                }}
+              />
+            </div>
+
+            {/* Floating Geometric Elements */}
+            <div
+              className="absolute top-12 right-8 w-24 h-24 border-2 border-accent/20 rounded-lg animate-spin"
+              style={{ animationDuration: "30s" }}
+            />
+            <div className="absolute bottom-24 left-4 w-16 h-16 border-2 border-accent/15 rounded-full animate-pulse" />
+            <div
+              className="absolute top-1/3 right-1/4 w-32 h-32 border border-accent/10 rounded-full animate-pulse"
+              style={{ animationDuration: "4s" }}
+            />
+
+            {/* Main Content Container */}
+            <div className="relative z-10 flex flex-col items-center justify-center flex-1 w-full">
+              {/* Name */}
+              <div className="animate-fadeInUp mb-2">
+                <h1 className="text-6xl font-bold leading-tight text-center">
+                  Toheeb
+                </h1>
+              </div>
+
+              {/* Last Name with Glow */}
+              <div
+                className="animate-fadeInUp mb-6"
+                style={{ animationDelay: "0.1s" }}
+              >
+                <h2 className="text-6xl font-bold text-center">
+                  <span className="neon-glow">Salaudeen</span>
+                </h2>
+              </div>
+
+              {/* Title Badge */}
+              <div
+                className="animate-fadeInUp mb-8"
+                style={{ animationDelay: "0.2s" }}
+              >
+                <div className="px-6 py-2 border border-accent/50 rounded-full bg-accent/5 backdrop-blur-sm">
+                  <p className="text-lg text-accent font-mono font-bold tracking-wider">
+                    Software Engineer
+                  </p>
+                </div>
+              </div>
+
+              {/* Animated Visual Element */}
+              <div
+                className="animate-fadeInUp mb-8"
+                style={{ animationDelay: "0.3s" }}
+              >
+                <div className="relative w-32 h-32">
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5 rounded-lg" />
+                  <div
+                    className="absolute top-2 right-2 w-12 h-12 border border-accent/40 rounded-lg animate-spin"
+                    style={{ animationDuration: "20s" }}
+                  />
+                  <div className="absolute bottom-4 left-2 w-8 h-8 border border-accent/25 rounded-full animate-pulse" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Code2 className="w-10 h-10 text-accent/50 animate-bounce" />
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div
+                className="animate-fadeInUp flex flex-col gap-3 w-full max-w-xs mb-8"
+                style={{ animationDelay: "0.4s" }}
+              >
+                <button
+                  onClick={() => scrollToSection("projects")}
+                  className="px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/50 font-semibold transition-all duration-200 ease-out rounded-sm w-full uppercase tracking-wide text-sm"
+                >
+                  View My Work
+                </button>
+                <button
+                  onClick={() => {
+                    const link = document.createElement("a");
+                    link.href = "#";
+                    link.download = "Toheeb_Salaudeen_CV.pdf";
+                    link.click();
+                  }}
+                  className="px-6 py-3 border border-accent text-accent hover:bg-accent/10 hover:shadow-lg hover:shadow-accent/30 font-semibold transition-all duration-200 ease-out rounded-sm w-full uppercase tracking-wide text-sm"
+                >
+                  Download CV
+                </button>
+              </div>
+
+              {/* Social Links */}
+              <div
+                className="animate-fadeInUp flex gap-4"
+                style={{ animationDelay: "0.5s" }}
+              >
+                {socialLinks.map(({ icon: Icon, url, label }) => (
+                  <a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-muted/50 hover:bg-accent/20 hover:text-accent border border-accent/30 hover:border-accent rounded-sm transition-all duration-200 ease-out backdrop-blur-sm"
+                    aria-label={label}
+                  >
+                    <Icon size={20} />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="animate-bounce text-accent/60 mt-auto mb-4">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="animate-bounce text-accent">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <About />
+
+      {/* Projects Section */}
+      <section
+        id="projects"
+        ref={projectsRef}
+        className="py-20 bg-muted/20 border-t border-border"
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
+              Featured Projects
+            </h2>
+            <p className="text-muted-foreground mx-auto">
+              Production-grade applications spanning geopolitical intelligence,
+              data visualization, and full-stack systems.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((project, idx) => (
+              <div
+                key={idx}
+                className="animate-fadeInUp"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <Card className="bg-card border-border hover:border-accent transition-all duration-200 ease-out group overflow-hidden h-full">
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="text-2xl font-bold group-hover:text-accent transition-all duration-200 ease-out">
+                        {project.title}
+                      </h3>
+                      <span
+                        className={`text-xs font-mono px-2 py-1 rounded-sm ${
+                          project.status === "Built"
+                            ? "bg-accent/10 text-accent"
+                            : "bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        {project.status}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground mb-4">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.tech.map(t => (
+                        <span
+                          key={t}
+                          className="px-3 py-1 bg-muted text-xs font-mono border border-border text-muted-foreground"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex gap-4">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button variant="outline" size="sm" className="gap-2">
+                          <GitBranch size={16} />
+                          Code
+                        </Button>
+                      </a>
+                      {project.live !== "#" && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button
+                            size="sm"
+                            className="bg-accent text-accent-foreground hover:bg-accent/90 gap-2"
+                          >
+                            <ExternalLink size={16} />
+                            Live
+                          </Button>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" ref={skillsRef} className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
+            Technical Stack
+          </h2>
+          <p className="text-muted-foreground mb-16 max-w-2xl">
+            Technologies and tools I work with regularly across the full stack.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Object.entries(skills).map(([category, items], idx) => (
+              <div
+                key={category}
+                className="opacity-0 animate-fadeInUp"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <Card className="bg-card border-border p-6 h-full">
+                  <h3 className="text-lg font-bold mb-4 text-accent flex items-center gap-2 capitalize">
+                    <Code2 size={18} />
+                    {category === "ai"
+                      ? "AI & APIs"
+                      : category.charAt(0).toUpperCase() + category.slice(1)}
+                  </h3>
+                  <ul className="space-y-2">
+                    {items.map(item => (
+                      <li
+                        key={item}
+                        className="text-sm text-muted-foreground flex items-center gap-2"
+                      >
+                        <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section
+        id="contact"
+        ref={contactRef}
+        className="py-20 bg-background border-t border-border opacity-0 relative overflow-hidden"
+      >
+        {/* Floating background elements */}
+        <div className="absolute top-10 left-10 w-48 h-48 border border-accent/10 rounded-full opacity-20 animate-pulse" />
+        <div
+          className="absolute bottom-20 right-5 w-64 h-64 border-2 border-accent/5 rounded-lg opacity-10 animate-spin"
+          style={{ animationDuration: "45s" }}
+        />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center md:text-left">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
+              Let's Connect
+            </h2>
+            <p className="text-muted-foreground mb-16 max-w-2xl">
+              Reach out directly or find me on social platforms. I'm always
+              interested in discussing interesting problems.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
+            {/* Email Card */}
+            <Card className="bg-card border-border p-8 hover:border-accent/50 transition-all duration-200 ease-out group cursor-pointer flex-1 flex flex-col items-center text-center hover:shadow-lg hover:shadow-accent/10">
+              <div className="p-4 bg-accent/10 rounded-sm group-hover:bg-accent/20 transition-colors mb-6">
+                <Mail size={32} className="text-accent" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Email</h3>
+              <a
+                href="mailto:roiwhiz@gmail.com"
+                className="text-accent hover:text-accent/80 transition-colors font-mono text-sm break-all mt-auto"
+              >
+                roiwhiz@gmail.com
+              </a>
+            </Card>
+
+            {/* Location Card */}
+            <Card className="bg-card border-border p-8 hover:border-accent/50 transition-all duration-200 ease-out group flex-1 flex flex-col items-center text-center hover:shadow-lg hover:shadow-accent/10">
+              <div className="p-4 bg-accent/10 rounded-sm group-hover:bg-accent/20 transition-colors mb-6">
+                <Globe size={32} className="text-accent" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Location</h3>
+              <p className="text-muted-foreground font-mono text-sm mt-auto">
+                Nigeria
+              </p>
+            </Card>
+
+            {/* Social Links Card */}
+            <Card className="bg-card border-border p-8 hover:border-accent/50 transition-all duration-200 ease-out group flex-1 flex flex-col items-center text-center hover:shadow-lg hover:shadow-accent/10">
+              <div className="p-4 bg-accent/10 rounded-sm group-hover:bg-accent/20 transition-colors mb-6">
+                <Linkedin size={32} className="text-accent" />
+              </div>
+              <h3 className="text-xl font-bold mb-6">Follow</h3>
+              <div className="flex gap-4 mt-auto">
+                {socialLinks.map(({ icon: Icon, url, label }) => (
+                  <a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-muted hover:bg-accent/20 hover:text-accent border border-border hover:border-accent rounded-sm transition-all duration-200 ease-out hover:scale-110"
+                    aria-label={label}
+                  >
+                    <Icon size={20} />
+                  </a>
+                ))}
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Scroll-to-Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-40 p-3 bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/50 rounded-sm transition-all duration-200 ease-out animate-fadeInUp"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
+
+      {/* Footer */}
+      <footer className="py-12 bg-muted/20 border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div>
+              <p className="text-sm text-muted-foreground">
+                © {new Date().getFullYear()} Toheeb Salaudeen. All rights
+                reserved.
+              </p>
+            </div>
+            <div className="flex gap-6">
+              {socialLinks.map(({ icon: Icon, url, label }) => (
+                <a
+                  key={label}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-accent transition-all duration-200 ease-out"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
