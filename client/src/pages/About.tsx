@@ -28,7 +28,7 @@ export default function About() {
           </h2>
         </div>
 
-        <div className="max-w-4xl space-y-8 mb-20 flex flex-col items-center mx-auto">
+        <div className="max-w-4xl space-y-8 mb-20 mx-auto">
           {/* Section 1: The Problem */}
           <div ref={problemRef} className="reveal">
             <h3 className="text-2xl font-bold mb-4 text-accent">The Problem</h3>

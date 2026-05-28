@@ -17,7 +17,6 @@ import { useState, useEffect, useRef } from "react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { projects as projectsData } from "@/data/projects";
-import { useIsMobile } from "@/hooks/useMobile";
 import About from "./About";
 
 export default function Home() {
@@ -25,7 +24,6 @@ export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const { activeSection, setActiveSection } = useActiveSection(navRef);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +45,6 @@ export default function Home() {
       const top =
         element.getBoundingClientRect().top + window.scrollY - navHeight;
       window.scrollTo({ top, behavior: "smooth" });
-
       setMobileMenuOpen(false);
     }
   };
@@ -238,8 +235,8 @@ export default function Home() {
                   View My Work
                 </button>
                 <a
-                  href="Toheeb_Salaudeen_CV.pdf"
-                  download="Toheeb_Salaudeen_CV.pdf"
+                  href="Toheeb_Salaudeen_Resume.pdf"
+                  download="Toheeb_Salaudeen_Resume.pdf"
                   className="px-8 py-3 border border-accent text-accent hover:bg-accent/10 hover:shadow-lg hover:shadow-accent/30 font-semibold transition-all duration-200 ease-out rounded-sm text-center"
                 >
                   Download CV
@@ -364,8 +361,8 @@ export default function Home() {
                   View My Work
                 </button>
                 <a
-                  href="Toheeb_Salaudeen_CV.pdf"
-                  download="Toheeb_Salaudeen_CV.pdf"
+                  href="Toheeb_Salaudeen_Resume.pdf"
+                  download="Toheeb_Salaudeen_Resume.pdf"
                   className="px-6 py-3 border border-accent text-accent hover:bg-accent/10 hover:shadow-lg hover:shadow-accent/30 font-semibold transition-all duration-200 ease-out rounded-sm w-full uppercase tracking-wide text-sm text-center"
                 >
                   Download CV
@@ -438,16 +435,9 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            {!isMobile ? (
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
-                Featured Projects
-              </h2>
-            ) : (
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
-                Projects
-              </h2>
-            )}
-
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
+              <span className="hidden md:inline">Featured </span>Projects
+            </h2>
             <p className="text-muted-foreground mx-auto">
               Production-grade applications spanning geopolitical intelligence,
               data visualization, and full-stack systems.
@@ -570,49 +560,39 @@ export default function Home() {
         ref={contactRef}
         className="reveal py-28 bg-background border-t border-border relative overflow-hidden"
       >
-        {/* Background Effects */}
         <div className="absolute top-0 left-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl opacity-20" />
-
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl opacity-10" />
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Header */}
           <div className="mb-20 text-center flex flex-col items-center">
             <h2 className="text-4xl md:text-6xl font-black tracking-tight inline-block">
               Let&apos;s Connect
             </h2>
-
             <div className="w-24 h-1 bg-accent rounded-full mt-4 mb-6" />
-            {!isMobile ? (
-              <p className="text-muted-foreground max-w-3xl text-base md:text-lg leading-relaxed">
+            <p className="text-muted-foreground max-w-3xl text-base md:text-lg leading-relaxed">
+              <span className="hidden md:inline">
                 Reach out directly or find me on social platforms. I&apos;m
                 always interested in discussing interesting problems,
                 collaborations, and innovative ideas.
-              </p>
-            ) : (
-              <p className="text-muted-foreground max-w-3xl text-base md:text-lg leading-relaxed">
+              </span>
+              <span className="md:hidden">
                 Let&apos;s connect and explore opportunities to collaborate on
                 exciting projects!
-              </p>
-            )}
+              </span>
+            </p>
           </div>
 
-          {/* Cards */}
           <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
-            {/* Email */}
             <Card className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 hover:border-accent/40 transition-all duration-300 group hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1">
               <div className="flex items-center gap-10 h-full">
                 <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shrink-0 border border-accent/10 group-hover:scale-105 transition-transform duration-300">
                   <Mail size={26} className="text-accent" />
                 </div>
-
                 <div className="flex flex-col justify-center min-w-0">
                   <h3 className="text-sm uppercase tracking-[0.2em] text-muted-foreground/80 font-semibold mb-2">
                     Email
                   </h3>
-
                   <div className="w-8 h-[2px] bg-accent rounded-full mb-3" />
-
                   <a
                     href="mailto:roiwhiz@gmail.com"
                     className="text-base text-foreground font-medium hover:text-accent transition-colors duration-200 font-mono break-all"
@@ -623,20 +603,16 @@ export default function Home() {
               </div>
             </Card>
 
-            {/* Location */}
             <Card className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 hover:border-accent/40 transition-all duration-300 group hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1">
               <div className="flex items-center gap-10 h-full">
                 <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shrink-0 border border-accent/10 group-hover:scale-105 transition-transform duration-300">
                   <Globe size={26} className="text-accent" />
                 </div>
-
                 <div className="flex flex-col justify-center min-w-0">
                   <h3 className="text-sm uppercase tracking-[0.2em] text-muted-foreground/80 font-semibold mb-2">
                     Location
                   </h3>
-
                   <div className="w-8 h-[2px] bg-accent rounded-full mb-3" />
-
                   <p className="text-base text-foreground/90 font-medium leading-relaxed">
                     Nigeria
                   </p>
@@ -644,20 +620,16 @@ export default function Home() {
               </div>
             </Card>
 
-            {/* Response Time */}
             <Card className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 hover:border-accent/40 transition-all duration-300 group hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1">
               <div className="flex items-center gap-10 h-full">
                 <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shrink-0 border border-accent/10 group-hover:scale-105 transition-transform duration-300">
                   <Clock size={26} className="text-accent" />
                 </div>
-
                 <div className="flex flex-col justify-center min-w-0">
                   <h3 className="text-sm uppercase tracking-[0.2em] text-muted-foreground/80 font-semibold mb-2">
                     Response Time
                   </h3>
-
                   <div className="w-8 h-[2px] bg-accent rounded-full mb-3" />
-
                   <p className="text-base text-foreground/90 font-medium leading-relaxed">
                     Instant (I check messages daily)
                   </p>
@@ -682,12 +654,10 @@ export default function Home() {
       <footer className="py-12 bg-muted/20 border-t border-border">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div>
-              <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} Toheeb Salaudeen. All rights
-                reserved.
-              </p>
-            </div>
+            <p className="text-base text-muted-foreground">
+              © {new Date().getFullYear()} Toheeb Salaudeen. All rights
+              reserved.
+            </p>
             <div className="flex gap-6">
               {socialLinks.map(({ icon: Icon, url, label }) => (
                 <a
@@ -696,8 +666,9 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-accent transition-all duration-200 ease-out"
+                  aria-label={label}
                 >
-                  <Icon size={20} />
+                  <Icon size={28} />
                 </a>
               ))}
             </div>
