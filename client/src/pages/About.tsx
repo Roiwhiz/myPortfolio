@@ -19,13 +19,16 @@ export default function About() {
       />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div ref={headingRef} className="reveal mb-16">
+        <div
+          ref={headingRef}
+          className="reveal mb-16 flex flex-col items-center text-center"
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
             How I Got Here
           </h2>
         </div>
 
-        <div className="max-w-4xl space-y-8 mb-20">
+        <div className="max-w-4xl space-y-8 mb-20 flex flex-col items-center mx-auto">
           {/* Section 1: The Problem */}
           <div ref={problemRef} className="reveal">
             <h3 className="text-2xl font-bold mb-4 text-accent">The Problem</h3>
@@ -97,7 +100,7 @@ export default function About() {
         </div>
 
         {/* Core Strengths */}
-        <div ref={strengthsRef} className="reveal">
+        <div ref={strengthsRef} className="reveal flex flex-col items-center">
           <h3 className="text-2xl font-bold mb-8 text-accent flex items-center gap-2">
             <Zap size={24} />
             What I Bring

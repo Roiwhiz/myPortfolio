@@ -11,11 +11,13 @@ import {
   Linkedin,
   ArrowUp,
   Globe,
+  Clock,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { projects as projectsData } from "@/data/projects";
+import { useIsMobile } from "@/hooks/useMobile";
 import About from "./About";
 
 export default function Home() {
@@ -23,6 +25,7 @@ export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const { activeSection, setActiveSection } = useActiveSection(navRef);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,11 +42,12 @@ export default function Home() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      setActiveSection(sectionId);
       const navHeight = navRef.current?.offsetHeight ?? 0;
       const top =
         element.getBoundingClientRect().top + window.scrollY - navHeight;
       window.scrollTo({ top, behavior: "smooth" });
-      setActiveSection(sectionId);
+
       setMobileMenuOpen(false);
     }
   };
@@ -434,9 +438,16 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
-              Featured Projects
-            </h2>
+            {!isMobile ? (
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
+                Featured Projects
+              </h2>
+            ) : (
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
+                Projects
+              </h2>
+            )}
+
             <p className="text-muted-foreground mx-auto">
               Production-grade applications spanning geopolitical intelligence,
               data visualization, and full-stack systems.
@@ -516,12 +527,15 @@ export default function Home() {
         className="reveal py-20 bg-background"
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
-            Technical Stack
-          </h2>
-          <p className="text-muted-foreground mb-16 max-w-2xl">
-            Technologies and tools I work with regularly across the full stack.
-          </p>
+          <div className="flex flex-col items-center text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
+              Technical Stack
+            </h2>
+            <p className="text-muted-foreground mb-16 max-w-2xl">
+              Technologies and tools I work with regularly across the full
+              stack.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Object.entries(skills).map(([category, items], idx) => (
               <div key={category} style={{ animationDelay: `${idx * 0.1}s` }}>
@@ -554,64 +568,100 @@ export default function Home() {
       <section
         id="contact"
         ref={contactRef}
-        className="reveal py-20 bg-background border-t border-border relative overflow-hidden"
+        className="reveal py-28 bg-background border-t border-border relative overflow-hidden"
       >
-        <div className="absolute top-10 left-10 w-48 h-48 border border-accent/10 rounded-full opacity-20 animate-pulse" />
-        <div
-          className="absolute bottom-20 right-5 w-64 h-64 border-2 border-accent/5 rounded-lg opacity-10 animate-spin"
-          style={{ animationDuration: "45s" }}
-        />
+        {/* Background Effects */}
+        <div className="absolute top-0 left-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl opacity-20" />
+
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl opacity-10" />
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center md:text-left">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
-              Let's Connect
+          {/* Header */}
+          <div className="mb-20 text-center flex flex-col items-center">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight inline-block">
+              Let&apos;s Connect
             </h2>
-            <p className="text-muted-foreground mb-16 max-w-2xl">
-              Reach out directly or find me on social platforms. I'm always
-              interested in discussing interesting problems.
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
-            <Card className="bg-card border-border p-8 hover:border-accent/50 transition-all duration-200 ease-out group cursor-pointer flex-1 flex flex-col items-center text-center hover:shadow-lg hover:shadow-accent/10">
-              <div className="p-4 bg-accent/10 rounded-sm group-hover:bg-accent/20 transition-colors mb-6">
-                <Mail size={32} className="text-accent" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Email</h3>
-              <a
-                href="mailto:roiwhiz@gmail.com"
-                className="text-accent hover:text-accent/80 transition-colors font-mono text-sm break-all mt-auto"
-              >
-                roiwhiz@gmail.com
-              </a>
-            </Card>
-            <Card className="bg-card border-border p-8 hover:border-accent/50 transition-all duration-200 ease-out group flex-1 flex flex-col items-center text-center hover:shadow-lg hover:shadow-accent/10">
-              <div className="p-4 bg-accent/10 rounded-sm group-hover:bg-accent/20 transition-colors mb-6">
-                <Globe size={32} className="text-accent" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Location</h3>
-              <p className="text-muted-foreground font-mono text-sm mt-auto">
-                Nigeria
+
+            <div className="w-24 h-1 bg-accent rounded-full mt-4 mb-6" />
+            {!isMobile ? (
+              <p className="text-muted-foreground max-w-3xl text-base md:text-lg leading-relaxed">
+                Reach out directly or find me on social platforms. I&apos;m
+                always interested in discussing interesting problems,
+                collaborations, and innovative ideas.
               </p>
-            </Card>
-            <Card className="bg-card border-border p-8 hover:border-accent/50 transition-all duration-200 ease-out group flex-1 flex flex-col items-center text-center hover:shadow-lg hover:shadow-accent/10">
-              <div className="p-4 bg-accent/10 rounded-sm group-hover:bg-accent/20 transition-colors mb-6">
-                <Linkedin size={32} className="text-accent" />
-              </div>
-              <h3 className="text-xl font-bold mb-6">Follow</h3>
-              <div className="flex gap-4 mt-auto">
-                {socialLinks.map(({ icon: Icon, url, label }) => (
+            ) : (
+              <p className="text-muted-foreground max-w-3xl text-base md:text-lg leading-relaxed">
+                Let&apos;s connect and explore opportunities to collaborate on
+                exciting projects!
+              </p>
+            )}
+          </div>
+
+          {/* Cards */}
+          <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
+            {/* Email */}
+            <Card className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 hover:border-accent/40 transition-all duration-300 group hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1">
+              <div className="flex items-center gap-10 h-full">
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shrink-0 border border-accent/10 group-hover:scale-105 transition-transform duration-300">
+                  <Mail size={26} className="text-accent" />
+                </div>
+
+                <div className="flex flex-col justify-center min-w-0">
+                  <h3 className="text-sm uppercase tracking-[0.2em] text-muted-foreground/80 font-semibold mb-2">
+                    Email
+                  </h3>
+
+                  <div className="w-8 h-[2px] bg-accent rounded-full mb-3" />
+
                   <a
-                    key={label}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-muted hover:bg-accent/20 hover:text-accent border border-border hover:border-accent rounded-sm transition-all duration-200 ease-out hover:scale-110"
-                    aria-label={label}
+                    href="mailto:roiwhiz@gmail.com"
+                    className="text-base text-foreground font-medium hover:text-accent transition-colors duration-200 font-mono break-all"
                   >
-                    <Icon size={20} />
+                    roiwhiz@gmail.com
                   </a>
-                ))}
+                </div>
+              </div>
+            </Card>
+
+            {/* Location */}
+            <Card className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 hover:border-accent/40 transition-all duration-300 group hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1">
+              <div className="flex items-center gap-10 h-full">
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shrink-0 border border-accent/10 group-hover:scale-105 transition-transform duration-300">
+                  <Globe size={26} className="text-accent" />
+                </div>
+
+                <div className="flex flex-col justify-center min-w-0">
+                  <h3 className="text-sm uppercase tracking-[0.2em] text-muted-foreground/80 font-semibold mb-2">
+                    Location
+                  </h3>
+
+                  <div className="w-8 h-[2px] bg-accent rounded-full mb-3" />
+
+                  <p className="text-base text-foreground/90 font-medium leading-relaxed">
+                    Nigeria
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            {/* Response Time */}
+            <Card className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 hover:border-accent/40 transition-all duration-300 group hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1">
+              <div className="flex items-center gap-10 h-full">
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shrink-0 border border-accent/10 group-hover:scale-105 transition-transform duration-300">
+                  <Clock size={26} className="text-accent" />
+                </div>
+
+                <div className="flex flex-col justify-center min-w-0">
+                  <h3 className="text-sm uppercase tracking-[0.2em] text-muted-foreground/80 font-semibold mb-2">
+                    Response Time
+                  </h3>
+
+                  <div className="w-8 h-[2px] bg-accent rounded-full mb-3" />
+
+                  <p className="text-base text-foreground/90 font-medium leading-relaxed">
+                    Instant (I check messages daily)
+                  </p>
+                </div>
               </div>
             </Card>
           </div>
