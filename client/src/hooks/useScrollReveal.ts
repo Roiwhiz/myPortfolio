@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -7,13 +7,13 @@ export function useScrollReveal() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fadeInUp');
+          entry.target.classList.add("reveal-visible");
           observer.unobserve(entry.target);
         }
       },
       {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px',
+        rootMargin: "0px 0px -50px 0px",
       }
     );
 

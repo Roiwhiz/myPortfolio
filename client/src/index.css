@@ -43,74 +43,74 @@
 }
 
 :root {
-  --primary: #00FF41;
+  --primary: #00ff41;
   --primary-foreground: #000000;
-  --sidebar-primary: #00FF41;
+  --sidebar-primary: #00ff41;
   --sidebar-primary-foreground: #000000;
-  --chart-1: #00FF41;
-  --chart-2: #00FF41;
-  --chart-3: #00FF41;
-  --chart-4: #00FF41;
-  --chart-5: #00FF41;
+  --chart-1: #00ff41;
+  --chart-2: #00ff41;
+  --chart-3: #00ff41;
+  --chart-4: #00ff41;
+  --chart-5: #00ff41;
   --radius: 0.25rem;
   --background: #000000;
-  --foreground: #FFFFFF;
+  --foreground: #ffffff;
   --card: #0a0a0a;
-  --card-foreground: #FFFFFF;
+  --card-foreground: #ffffff;
   --popover: #0a0a0a;
-  --popover-foreground: #FFFFFF;
-  --secondary: #64748B;
-  --secondary-foreground: #FFFFFF;
+  --popover-foreground: #ffffff;
+  --secondary: #64748b;
+  --secondary-foreground: #ffffff;
   --muted: #1a1a1a;
-  --muted-foreground: #64748B;
-  --accent: #00FF41;
+  --muted-foreground: #64748b;
+  --accent: #00ff41;
   --accent-foreground: #000000;
-  --destructive: #FF4444;
-  --destructive-foreground: #FFFFFF;
+  --destructive: #ff4444;
+  --destructive-foreground: #ffffff;
   --border: #1a1a1a;
   --input: #0a0a0a;
-  --ring: #00FF41;
+  --ring: #00ff41;
   --sidebar: #000000;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-accent: #00FF41;
+  --sidebar-foreground: #ffffff;
+  --sidebar-accent: #00ff41;
   --sidebar-accent-foreground: #000000;
   --sidebar-border: #1a1a1a;
-  --sidebar-ring: #00FF41;
+  --sidebar-ring: #00ff41;
 }
 
 .dark {
-  --primary: #00FF41;
+  --primary: #00ff41;
   --primary-foreground: #000000;
-  --sidebar-primary: #00FF41;
+  --sidebar-primary: #00ff41;
   --sidebar-primary-foreground: #000000;
   --background: #000000;
-  --foreground: #FFFFFF;
+  --foreground: #ffffff;
   --card: #0a0a0a;
-  --card-foreground: #FFFFFF;
+  --card-foreground: #ffffff;
   --popover: #0a0a0a;
-  --popover-foreground: #FFFFFF;
-  --secondary: #64748B;
-  --secondary-foreground: #FFFFFF;
+  --popover-foreground: #ffffff;
+  --secondary: #64748b;
+  --secondary-foreground: #ffffff;
   --muted: #1a1a1a;
-  --muted-foreground: #64748B;
-  --accent: #00FF41;
+  --muted-foreground: #64748b;
+  --accent: #00ff41;
   --accent-foreground: #000000;
-  --destructive: #FF4444;
-  --destructive-foreground: #FFFFFF;
+  --destructive: #ff4444;
+  --destructive-foreground: #ffffff;
   --border: #1a1a1a;
   --input: #0a0a0a;
-  --ring: #00FF41;
-  --chart-1: #00FF41;
-  --chart-2: #00FF41;
-  --chart-3: #00FF41;
-  --chart-4: #00FF41;
-  --chart-5: #00FF41;
+  --ring: #00ff41;
+  --chart-1: #00ff41;
+  --chart-2: #00ff41;
+  --chart-3: #00ff41;
+  --chart-4: #00ff41;
+  --chart-5: #00ff41;
   --sidebar: #000000;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-accent: #00FF41;
+  --sidebar-foreground: #ffffff;
+  --sidebar-accent: #00ff41;
   --sidebar-accent-foreground: #000000;
   --sidebar-border: #1a1a1a;
-  --sidebar-ring: #00FF41;
+  --sidebar-ring: #00ff41;
 }
 
 @layer base {
@@ -139,14 +139,23 @@
     @apply font-mono;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'JetBrains Mono', monospace;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "JetBrains Mono", monospace;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
 
-  body, p, span, a, button {
-    font-family: 'Fira Code', monospace;
+  body,
+  p,
+  span,
+  a,
+  button {
+    font-family: "Fira Code", monospace;
   }
 
   h1 {
@@ -168,29 +177,24 @@
   }
 
   .neon-underline::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -4px;
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #00FF41;
-    box-shadow: 0 0 10px #00FF41;
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
-  }
-
-  .neon-underline:hover::after {
+    background-color: #00ff41;
+    box-shadow: 0 0 10px #00ff41;
     opacity: 1;
   }
 
   /* Glow effect for neon elements */
   .neon-glow {
-    color: #00FF41;
-    text-shadow: 0 0 10px #00FF41, 0 0 20px rgba(0, 255, 65, 0.5);
+    color: #00ff41;
+    text-shadow:
+      0 0 10px #00ff41,
+      0 0 20px rgba(0, 255, 65, 0.5);
   }
-
-
 
   /* Custom container utility */
   .container {
@@ -221,7 +225,33 @@
     }
   }
 
-  /* Animations */
+  /* ============================================================
+     SCROLL REVEAL SYSTEM
+     Used by useScrollReveal hook for scroll-triggered elements.
+
+     .reveal        — applied in JSX. Hides the element and sets
+                      up the transition. Never removed.
+     .reveal-visible — added by the observer when the element
+                      enters the viewport. Triggers the transition.
+     ============================================================ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============================================================
+     KEYFRAME ANIMATIONS
+     Used for elements that animate on page load (hero section).
+     These are NOT used by useScrollReveal.
+     ============================================================ */
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -245,11 +275,14 @@
   }
 
   @keyframes glowPulse {
-    0%, 100% {
-      box-shadow: 0 0 10px #00FF41;
+    0%,
+    100% {
+      box-shadow: 0 0 10px #00ff41;
     }
     50% {
-      box-shadow: 0 0 20px #00FF41, 0 0 30px rgba(0, 255, 65, 0.5);
+      box-shadow:
+        0 0 20px #00ff41,
+        0 0 30px rgba(0, 255, 65, 0.5);
     }
   }
 
