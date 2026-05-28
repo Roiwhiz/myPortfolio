@@ -60,18 +60,18 @@ export default function About() {
             </h3>
             <p className="text-muted-foreground leading-relaxed text-lg">
               In mid-2024, after my first year at university, one of my
-              residential mates shared a web development tutorial in a WhatsApp
-              group. I opened it without much expectation. It made an impression
-              that is difficult to overstate. Something about the directness of
-              it — the idea that you could build something real and functional
-              using nothing but a computer and a browser — clicked in a way that
-              digital marketing never fully had.
+              residential mates — alongside a friend of his — began organizing
+              virtual web development classes that ran for about three to four
+              weeks. They would create Google Meet or Zoom sessions and teach
+              consistently throughout the period.
             </p>
             <p className="text-muted-foreground leading-relaxed text-lg mt-4">
-              I finished the tutorial and kept going. Udemy courses, then
-              YouTube, then documentation. No bootcamp, no formal CS background,
-              no structured curriculum. Just consistent self-directed learning
-              every day alongside a full academic load.
+              I attended most, if not all, of the classes without expecting much
+              at first, but the experience left a deeper impression than I
+              anticipated. Something about the directness of web development —
+              the idea that you could build something real and functional using
+              nothing but a computer and a browser — clicked in a way that
+              digital marketing never fully had.
             </p>
           </div>
 
