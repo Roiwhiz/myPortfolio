@@ -19,6 +19,64 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { projects as projectsData } from "@/data/projects";
 import About from "./About";
 
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+interface FrameworkGroup {
+  frontend: string[];
+  backend: string[];
+}
+
+interface DevToolGroup {
+  ide: string[];
+  apiTesting: string[];
+  databaseTools: string[];
+  versionControl: string[];
+  packageManagers: string[];
+  codeQuality: string[];
+  debugging: string[];
+  testing: string[];
+  containers: string[];
+}
+
+interface Skills {
+  languages: string[];
+  frameworks: FrameworkGroup;
+  databaseAndOrm: string[];
+  stateAndData: string[];
+  validation: string[];
+  designSystem: string[];
+  aiAndSearch: string[];
+  localization: string[];
+  infrastructure: string[];
+  developmentTools: DevToolGroup;
+}
+
+// ─── Label maps ──────────────────────────────────────────────────────────────
+
+const SKILL_LABELS: Record<string, string> = {
+  languages: "Languages",
+  frameworks: "Frameworks",
+  databaseAndOrm: "Database & ORM",
+  stateAndData: "State & Data",
+  validation: "Validation",
+  designSystem: "Design System",
+  aiAndSearch: "AI & Search",
+  localization: "Localization",
+  infrastructure: "Infrastructure",
+};
+
+const DEV_TOOL_LABELS: Record<string, string> = {
+  ide: "IDE",
+  apiTesting: "API Testing",
+  databaseTools: "Database Tools",
+  versionControl: "Version Control",
+  packageManagers: "Package Managers",
+  codeQuality: "Code Quality",
+  debugging: "Debugging",
+  testing: "Testing",
+  containers: "Containers",
+};
+
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -59,27 +117,36 @@ export default function Home() {
 
   const projects = projectsData;
 
-  const skills = {
-    backend: [
-      "Node.js",
-      "TypeScript",
-      "Express",
-      "Prisma",
-      "PostgreSQL",
-      "Redis",
-    ],
-    frontend: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Zustand",
-      "React Query",
-      "Zod",
-    ],
-    ai: ["Gemini API", "Tavily Search API"],
-    deployment: ["Render", "Vercel"],
-    other: ["next-intl (i18n)", "shadcn/ui"],
+  const skills: Skills = {
+    languages: ["TypeScript", "JavaScript"],
+    frameworks: {
+      frontend: ["Next.js", "React"],
+      backend: ["Node.js", "Express"],
+    },
+    databaseAndOrm: ["PostgreSQL", "Prisma", "Redis"],
+    stateAndData: ["React Query", "Zustand"],
+    validation: ["Zod"],
+    designSystem: ["Tailwind CSS", "shadcn/ui"],
+    aiAndSearch: ["Gemini API", "Tavily Search API"],
+    localization: ["next-intl (i18n)"],
+    infrastructure: ["Vercel", "Render"],
+    developmentTools: {
+      ide: ["VS Code", "Cursor"],
+      apiTesting: ["Postman"],
+      databaseTools: ["Prisma Studio", "PgAdmin"],
+      versionControl: ["Git", "GitHub"],
+      packageManagers: ["npm", "pnpm"],
+      codeQuality: ["ESLint", "Prettier"],
+      debugging: ["Chrome DevTools", "React DevTools"],
+      testing: ["Vitest", "Playwright"],
+      containers: ["Docker"],
+    },
   };
+
+  // Core skills entries — everything except developmentTools
+  const coreSkillEntries = (
+    Object.entries(skills) as [keyof Skills, Skills[keyof Skills]][]
+  ).filter(([key]) => key !== "developmentTools");
 
   const socialLinks = [
     { icon: Github, url: "https://github.com/Roiwhiz", label: "GitHub" },
@@ -88,11 +155,12 @@ export default function Home() {
       url: "https://www.linkedin.com/in/toheeb-salaudeen-83b2382a6/",
       label: "LinkedIn",
     },
-    { icon: Mail, url: "mailto:hello@example.com", label: "Email" },
+    { icon: Mail, url: "mailto:roiwhiz@gmail.com", label: "Email" },
   ];
 
   const projectsRef = useScrollReveal();
   const skillsRef = useScrollReveal();
+  const devToolsRef = useScrollReveal();
   const contactRef = useScrollReveal();
 
   return (
@@ -107,7 +175,7 @@ export default function Home() {
             onClick={() => scrollToSection("home")}
             className="text-xl font-bold neon-glow animate-glowPulse hover:opacity-80 transition-opacity"
           >
-            ST
+            TS
           </button>
 
           <div className="hidden md:flex gap-6 text-sm">
@@ -517,39 +585,105 @@ export default function Home() {
         className="reveal py-20 bg-background"
       >
         <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col items-center text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 neon-underline inline-block">
               Technical Stack
             </h2>
-            <p className="text-muted-foreground mb-16 max-w-2xl">
+            <p className="text-muted-foreground max-w-2xl">
               Technologies and tools I work with regularly across the full
               stack.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(skills).map(([category, items], idx) => (
+
+          {/* Core skills grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            {coreSkillEntries.map(([category, value], idx) => (
               <div key={category} style={{ animationDelay: `${idx * 0.1}s` }}>
                 <Card className="bg-card border-border p-6 h-full">
-                  <h3 className="text-lg font-bold mb-4 text-accent flex items-center gap-2 capitalize">
+                  <h3 className="text-lg font-bold mb-4 text-accent flex items-center gap-2">
                     <Code2 size={18} />
-                    {category === "ai"
-                      ? "AI & APIs"
-                      : category.charAt(0).toUpperCase() + category.slice(1)}
+                    {SKILL_LABELS[category] ?? category}
                   </h3>
+
+                  {/* Frameworks card — two sub-groups */}
+                  {category === "frameworks" ? (
+                    <div className="space-y-4">
+                      {(
+                        Object.entries(value as FrameworkGroup) as [
+                          string,
+                          string[],
+                        ][]
+                      ).map(([subKey, subItems]) => (
+                        <div key={subKey}>
+                          <p className="text-xs uppercase tracking-widest text-muted-foreground/60 mb-2">
+                            {subKey}
+                          </p>
+                          <ul className="space-y-1">
+                            {subItems.map(item => (
+                              <li
+                                key={item}
+                                className="text-sm text-muted-foreground flex items-center gap-2"
+                              >
+                                <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    // All other cards — flat string array
+                    <ul className="space-y-2">
+                      {(value as string[]).map(item => (
+                        <li
+                          key={item}
+                          className="text-sm text-muted-foreground flex items-center gap-2"
+                        >
+                          <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </Card>
+              </div>
+            ))}
+          </div>
+
+          {/* Development Tools section */}
+          <div ref={devToolsRef} className="reveal">
+            <div className="flex items-center gap-4 mb-10">
+              <h3 className="text-2xl font-bold text-accent">
+                Development Tools
+              </h3>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10">
+              {(
+                Object.entries(skills.developmentTools) as [
+                  keyof DevToolGroup,
+                  string[],
+                ][]
+              ).map(([subKey, items]) => (
+                <div key={subKey}>
+                  <p className="text-xs uppercase tracking-widest text-accent/70 font-semibold mb-3">
+                    {DEV_TOOL_LABELS[subKey]}
+                  </p>
                   <ul className="space-y-2">
                     {items.map(item => (
                       <li
                         key={item}
-                        className="text-sm text-muted-foreground flex items-center gap-2"
+                        className="text-sm text-muted-foreground font-mono"
                       >
-                        <span className="w-1.5 h-1.5 bg-accent rounded-full" />
                         {item}
                       </li>
                     ))}
                   </ul>
-                </Card>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
