@@ -1,8 +1,10 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
+import { useState } from "react";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import TerminalLoader from "./components/TerminalLoader";
 import Home from "./pages/Home";
 
 function Router() {
@@ -16,10 +18,13 @@ function Router() {
 }
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
   return (
     <ErrorBoundary>
       <TooltipProvider>
         <Toaster />
+        {loading && <TerminalLoader onComplete={() => setLoading(false)} />}
         <Router />
       </TooltipProvider>
     </ErrorBoundary>

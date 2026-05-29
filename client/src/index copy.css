@@ -316,25 +316,4 @@
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-accent;
   }
-
-  /* Terminal cursor for TerminalLoader */
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-
-  .terminal-cursor {
-    display: inline-block;
-    width: 0.55ch;
-    height: 1em;
-    background-color: #00ff41;
-    vertical-align: text-bottom;
-    margin-left: 1px;
-    animation: blink 1s step-start infinite;
-  }
 }
