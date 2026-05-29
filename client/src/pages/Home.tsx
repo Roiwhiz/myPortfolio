@@ -517,7 +517,7 @@ export default function Home() {
                 <Card className="bg-card border-border hover:border-accent transition-all duration-200 ease-out group overflow-hidden h-full">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-2xl font-bold group-hover:text-accent transition-all duration-200 ease-out">
+                      <h3 className="text-2xl font-bold text-accent group-hover:text-foreground transition-all duration-200 ease-out">
                         {project.title}
                       </h3>
                       <span
