@@ -155,6 +155,11 @@ export default function Home() {
       url: "https://www.linkedin.com/in/toheeb-salaudeen-83b2382a6/",
       label: "LinkedIn",
     },
+    {
+      icon: X,
+      url: "https://x.com/StackAndStat",
+      label: "X (Twitter)",
+    },
     { icon: Mail, url: "mailto:roiwhiz@gmail.com", label: "Email" },
   ];
 
