@@ -2,8 +2,8 @@
 
 A high-performance, visually distinctive portfolio website showcasing 10 geopolitical intelligence projects. Built with React 19, TypeScript, Tailwind CSS 4, and Vite. Features a cyberpunk minimalism design aesthetic with scroll-triggered animations, smooth navigation, and a fully functional contact form.
 
-**Live Site:** [Portfolio](https://salaudeen-portfolio.vercel.app)  
-**GitHub:** [Roiwhiz](https://github.com/Roiwhiz)
+**Live Site:** [Portfolio](https://roiwhiz.vercel.app)  
+**GitHub:** [Roiwhiz](https://github.com/Roiwhiz/myPortfolio)
 
 ---
 
@@ -446,8 +446,7 @@ This is a personal portfolio, but improvements are welcome:
 
 - **GitHub:** [@Roiwhiz](https://github.com/Roiwhiz)
 - **LinkedIn:** [Toheeb Salaudeen](https://www.linkedin.com/in/toheeb-salaudeen-83b2382a6/)
-- **Email:** hello@example.com (update with your email)
-
+- **Email:** roiwhiz@gmail.com
 ---
 
 ## 🎯 Future Enhancements
@@ -459,7 +458,6 @@ Potential additions:
 - [ ] Newsletter signup
 - [ ] Project filtering by tech stack
 - [ ] Case studies with deep dives
-- [ ] PDF resume download
 
 ---
 
