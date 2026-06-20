@@ -1,6 +1,6 @@
-# Toheeb Salaudeen — Geopolitical Intelligence Portfolio
+# Toheeb Salaudeen — Portfolio
 
-A high-performance, visually distinctive portfolio website showcasing 10 geopolitical intelligence projects. Built with React 19, TypeScript, Tailwind CSS 4, and Vite. Features a cyberpunk minimalism design aesthetic with scroll-triggered animations, smooth navigation, and a fully functional contact form.
+A high-performance, visually distinctive portfolio website. Built with React 19, TypeScript, Tailwind CSS 4, and Vite. Features a cyberpunk minimalism design aesthetic with scroll-triggered animations, smooth navigation, and a fully functional contact form.
 
 **Live Site:** [Portfolio](https://roiwhiz.vercel.app)  
 **GitHub:** [Roiwhiz](https://github.com/Roiwhiz/myPortfolio)
