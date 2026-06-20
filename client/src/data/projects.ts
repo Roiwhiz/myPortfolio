@@ -27,7 +27,7 @@ export const projects = [
     live: "#",
   },
   {
-    title: "UN Resolutions Search Engine",
+    title: "Resolva",
     status: "In Development",
     description:
       "UN Security Council resolutions are publicly available but practically unsearchable. This tool embeds every resolution into a vector database and lets users run natural language queries — returning ranked results with AI-generated summaries. It demonstrates RAG architecture applied to a real document corpus that analysts actually need to navigate.",
@@ -38,7 +38,7 @@ export const projects = [
       "pgvector",
       "OpenAI Embeddings",
     ],
-    github: "https://github.com/Roiwhiz",
+    github: "https://github.com/Roiwhiz/resolva-backend/",
     live: "#",
   },
   {

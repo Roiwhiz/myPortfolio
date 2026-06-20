@@ -247,11 +247,6 @@
     transform: translateY(0);
   }
 
-  /* ============================================================
-     KEYFRAME ANIMATIONS
-     Used for elements that animate on page load (hero section).
-     These are NOT used by useScrollReveal.
-     ============================================================ */
   @keyframes fadeInUp {
     from {
       opacity: 0;
