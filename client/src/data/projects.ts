@@ -36,7 +36,7 @@ export const projects = [
       "TypeScript",
       "PostgreSQL",
       "pgvector",
-      "OpenAI Embeddings",
+      "Gemini Embeddings",
     ],
     github: "https://github.com/Roiwhiz/resolva-backend/",
     live: "#",
