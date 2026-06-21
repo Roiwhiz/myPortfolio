@@ -16,15 +16,7 @@ export const projects = [
     ],
     github: "https://github.com/Roiwhiz/geowatch-frontend",
     live: "https://geowatch-frontend.vercel.app/",
-  },
-  {
-    title: "Conflict Data Dashboard",
-    status: "In Development",
-    description:
-      "Most conflict data lives in spreadsheets that analysts have to download, filter, and chart manually. This dashboard pulls live from the ACLED API and renders conflict events on an interactive map — filterable by country, actor, event type, and date range — with fatality trend lines and actor breakdowns updating in real time.",
-    tech: ["Next.js", "TypeScript", "ACLED API", "Mapbox", "Recharts"],
-    github: "https://github.com/Roiwhiz",
-    live: "#",
+    repo: true,
   },
   {
     title: "Resolva",
@@ -40,6 +32,17 @@ export const projects = [
     ],
     github: "https://github.com/Roiwhiz/resolva-backend/",
     live: "#",
+    repo: true,
+  },
+  {
+    title: "Conflict Data Dashboard",
+    status: "In Development",
+    description:
+      "Most conflict data lives in spreadsheets that analysts have to download, filter, and chart manually. This dashboard pulls live from the ACLED API and renders conflict events on an interactive map — filterable by country, actor, event type, and date range — with fatality trend lines and actor breakdowns updating in real time.",
+    tech: ["Next.js", "TypeScript", "ACLED API", "Mapbox", "Recharts"],
+    github: "https://github.com/Roiwhiz",
+    live: "#",
+    repo: false,
   },
   {
     title: "Sanctions Tracker",
@@ -55,6 +58,7 @@ export const projects = [
     ],
     github: "https://github.com/Roiwhiz",
     live: "#",
+    repo: false,
   },
   {
     title: "Trade Flow Visualiser",
@@ -64,6 +68,7 @@ export const projects = [
     tech: ["Next.js", "TypeScript", "UN Comtrade API", "D3.js"],
     github: "https://github.com/Roiwhiz",
     live: "#",
+    repo: false,
   },
   {
     title: "Multilingual News Aggregator",
@@ -73,6 +78,7 @@ export const projects = [
     tech: ["Next.js", "TypeScript", "PostgreSQL", "Gemini API", "RSS Parsing"],
     github: "https://github.com/Roiwhiz",
     live: "#",
+    repo: false,
   },
   {
     title: "Treaty Database",
@@ -82,6 +88,7 @@ export const projects = [
     tech: ["Next.js", "TypeScript", "PostgreSQL", "UN Treaty Collection API"],
     github: "https://github.com/Roiwhiz",
     live: "#",
+    repo: false,
   },
   {
     title: "Country Risk Intelligence Brief Generator",
@@ -91,6 +98,7 @@ export const projects = [
     tech: ["Next.js", "TypeScript", "Gemini API", "World Bank API", "IMF API"],
     github: "https://github.com/Roiwhiz",
     live: "#",
+    repo: false,
   },
   {
     title: "Refugee and Displacement Tracker",
@@ -100,6 +108,7 @@ export const projects = [
     tech: ["Next.js", "TypeScript", "UNHCR API", "Mapbox", "Recharts"],
     github: "https://github.com/Roiwhiz",
     live: "#",
+    repo: false,
   },
   {
     title: "UN General Assembly Voting Tracker",
@@ -115,5 +124,6 @@ export const projects = [
     ],
     github: "https://github.com/Roiwhiz",
     live: "#",
+    repo: false,
   },
 ];

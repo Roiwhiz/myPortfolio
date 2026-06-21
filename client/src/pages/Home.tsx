@@ -549,16 +549,18 @@ export default function Home() {
                       ))}
                     </div>
                     <div className="flex gap-4">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Button variant="outline" size="sm" className="gap-2">
-                          <GitBranch size={16} />
-                          Code
-                        </Button>
-                      </a>
+                      {project.repo && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button variant="outline" size="sm" className="gap-2">
+                            <GitBranch size={16} />
+                            Code
+                          </Button>
+                        </a>
+                      )}
                       {project.live !== "#" && (
                         <a
                           href={project.live}
