@@ -155,12 +155,7 @@ export default function Home() {
       url: "https://www.linkedin.com/in/toheeb-salaudeen-83b2382a6/",
       label: "LinkedIn",
     },
-    {
-      icon: X,
-      url: "https://x.com/StackAndStat",
-      label: "X (Twitter)",
-    },
-    { icon: Mail, url: "mailto:roiwhiz@gmail.com", label: "Email" },
+    { icon: Mail, url: "mailto:hello@example.com", label: "Email" },
   ];
 
   const projectsRef = useScrollReveal();
@@ -180,7 +175,7 @@ export default function Home() {
             onClick={() => scrollToSection("home")}
             className="text-xl font-bold neon-glow animate-glowPulse hover:opacity-80 transition-opacity"
           >
-            TS
+            ST
           </button>
 
           <div className="hidden md:flex gap-6 text-sm">
@@ -522,16 +517,21 @@ export default function Home() {
                 <Card className="bg-card border-border hover:border-accent transition-all duration-200 ease-out group overflow-hidden h-full">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-2xl font-bold text-accent group-hover:text-foreground transition-all duration-200 ease-out">
+                      <h3 className="text-2xl font-bold group-hover:text-accent transition-all duration-200 ease-out">
                         {project.title}
                       </h3>
                       <span
-                        className={`text-xs font-mono px-2 py-1 rounded-sm ${
+                        className={`text-xs font-mono px-2 py-1 rounded-sm flex items-center gap-1.5 ${
                           project.status === "Built"
                             ? "bg-accent/10 text-accent"
-                            : "bg-muted text-muted-foreground"
+                            : project.status === "In Development"
+                              ? "bg-accent/10 text-accent"
+                              : "bg-muted text-muted-foreground"
                         }`}
                       >
+                        {project.status === "In Development" && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
+                        )}
                         {project.status}
                       </span>
                     </div>

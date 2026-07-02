@@ -35,8 +35,18 @@ export const projects = [
     repo: true,
   },
   {
+    title: "Meridian",
+    status: "Planned",
+    description:
+      "Bilateral trade relationships are notoriously hard to read from raw data. This tool takes any two countries and a year, queries the UN Comtrade API, and renders the trade relationship as a Sankey diagram — showing what each country exports to the other, in what volumes, and how that has shifted over time.",
+    tech: ["Next.js", "TypeScript", "UN Comtrade API", "D3.js"],
+    github: "https://github.com/Roiwhiz",
+    live: "#",
+    repo: false,
+  },
+  {
     title: "Conflict Data Dashboard",
-    status: "In Development",
+    status: "Planned",
     description:
       "Most conflict data lives in spreadsheets that analysts have to download, filter, and chart manually. This dashboard pulls live from the ACLED API and renders conflict events on an interactive map — filterable by country, actor, event type, and date range — with fatality trend lines and actor breakdowns updating in real time.",
     tech: ["Next.js", "TypeScript", "ACLED API", "Mapbox", "Recharts"],
@@ -46,7 +56,7 @@ export const projects = [
   },
   {
     title: "Sanctions Tracker",
-    status: "In Development",
+    status: "Planned",
     description:
       "Sanctions regimes are fragmented across jurisdictions — US OFAC, the EU, the UN, and bilateral programmes all maintain separate lists with different formats and update cycles. This tracker aggregates active sanctions across all major issuing bodies into a single queryable interface.",
     tech: [
@@ -60,19 +70,10 @@ export const projects = [
     live: "#",
     repo: false,
   },
-  {
-    title: "Trade Flow Visualiser",
-    status: "In Development",
-    description:
-      "Bilateral trade relationships are notoriously hard to read from raw data. This tool takes any two countries and a year, queries the UN Comtrade API, and renders the trade relationship as a Sankey diagram — showing what each country exports to the other, in what volumes, and how that has shifted over time.",
-    tech: ["Next.js", "TypeScript", "UN Comtrade API", "D3.js"],
-    github: "https://github.com/Roiwhiz",
-    live: "#",
-    repo: false,
-  },
+
   {
     title: "Multilingual News Aggregator",
-    status: "In Development",
+    status: "Planned",
     description:
       "The same geopolitical event looks completely different depending on which country's press you read. This aggregator pulls from RSS feeds across multiple languages and regions, uses an LLM to translate and cluster articles by topic, and surfaces divergent narratives on the same event side by side.",
     tech: ["Next.js", "TypeScript", "PostgreSQL", "Gemini API", "RSS Parsing"],
@@ -82,7 +83,7 @@ export const projects = [
   },
   {
     title: "Treaty Database",
-    status: "In Development",
+    status: "Planned",
     description:
       "International treaties are referenced constantly in academic IR but are practically difficult to search at scale. This database ingests treaty records from the UN Treaty Collection and exposes them through a full-text search interface — filterable by signatory country, topic area, and date range.",
     tech: ["Next.js", "TypeScript", "PostgreSQL", "UN Treaty Collection API"],
@@ -92,7 +93,7 @@ export const projects = [
   },
   {
     title: "Country Risk Intelligence Brief Generator",
-    status: "In Development",
+    status: "Planned",
     description:
       "Enter a country and a sector — energy, finance, agriculture, defence — and this tool generates a structured risk brief covering political stability, economic indicators, security situation, and regulatory environment. It pulls live data from the World Bank and IMF APIs.",
     tech: ["Next.js", "TypeScript", "Gemini API", "World Bank API", "IMF API"],
@@ -102,7 +103,7 @@ export const projects = [
   },
   {
     title: "Refugee and Displacement Tracker",
-    status: "In Development",
+    status: "Planned",
     description:
       "Forced displacement data is scattered across UNHCR reports that are updated infrequently and hard to compare across time. This platform pulls directly from the UNHCR API and visualises displacement trends on an interactive map with country profiles, historical trend lines, and event-based annotations.",
     tech: ["Next.js", "TypeScript", "UNHCR API", "Mapbox", "Recharts"],
@@ -112,7 +113,7 @@ export const projects = [
   },
   {
     title: "UN General Assembly Voting Tracker",
-    status: "In Development",
+    status: "Planned",
     description:
       "How countries vote in the UN General Assembly is one of the clearest signals of geopolitical alignment. This tracker ingests the full GA voting record, models it as a network graph, and lets users explore voting blocs, alignment clusters, and how specific countries' positions have shifted over time.",
     tech: [
