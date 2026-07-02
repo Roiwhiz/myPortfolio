@@ -516,12 +516,12 @@ export default function Home() {
               <div key={idx} style={{ animationDelay: `${idx * 0.1}s` }}>
                 <Card className="bg-card border-border hover:border-accent transition-all duration-200 ease-out group overflow-hidden h-full">
                   <div className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-2xl font-bold group-hover:text-accent transition-all duration-200 ease-out">
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <h3 className="text-2xl font-bold min-w-0 group-hover:text-accent transition-all duration-200 ease-out">
                         {project.title}
                       </h3>
                       <span
-                        className={`text-xs font-mono px-2 py-1 rounded-sm flex items-center gap-1.5 ${
+                        className={`text-xs font-mono px-2 py-1 rounded-sm flex items-center gap-1.5 shrink-0 ${
                           project.status === "Built"
                             ? "bg-accent/10 text-accent"
                             : project.status === "In Development"
